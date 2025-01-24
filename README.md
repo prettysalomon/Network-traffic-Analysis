@@ -1,4 +1,4 @@
-<h1>Network Traffic Analysis !</h1>
+<h1>Network Traffic Analysis using tcpdump log files!</h1>
 
 <h2>Scenario</h2>
 
@@ -22,40 +22,35 @@ In the tcpdump log, you find the following information:
 
 <h2>Summary of Problem found in Tcpdump log</h2>
 
--The analysis of the captured tcpdump log reveals that the root cause of the issue preventing users from accessing the website www.yummyrecipesforme.com is a failure in the DNS resolution process. Specifically, the captured logs show that when the client browser attempts to resolve the domain name to an IP address by sending a UDP query to the DNS server on port 53, the server responds with an ICMP error message: "udp port 53 unreachable."
+The analysis of the captured tcpdump log reveals that the root cause of the issue preventing users from accessing the website www.yummyrecipesforme.com is a failure in the DNS resolution process. 
 
--This indicates that the DNS server is either down, misconfigured, or blocked, preventing successful resolution of the domain name. Without resolving the domain name to its corresponding IP address, the browser cannot initiate an HTTPS request to the web server, resulting in the "destination port unreachable" error message experienced by users.
+As part of the DNS protocol, the UDP protocol was used to contact the DNS server to retrieve the IP address for the domain name of www.yummyrecipesforme.com. 
+
+The ICMP protocol was used to respond with an error message, indicating issues contacting the DNS server. 
+
+The UDP message going from the browser to the DNS server is shown in the first two lines of every log event. 
+
+The ICMP error response from the DNS server to the browser is displayed in the third and fourth lines of every log event with the error message, “udp port 53 unreachable.” 
+
+Since port 53 is associated with DNS protocol traffic, we know this is an issue with the DNS server. 
+
+Issues with performing the DNS protocol are further evident because the plus sign after the query identification number 35084 indicates flags with the UDP message and the “A?” symbol indicates flags with performing DNS protocol operations. 
+
+Due to the ICMP error response message about port 53, it is highly likely that the DNS server is not responding. This assumption is further supported by the flags associated with the outgoing UDP message and domain name retrieval.
 
 <h2>Analysis of the data</h2>
 
-1-Upon receiving reports from users, the cybersecurity team conducted an investigation and confirmed the issue. The following symptoms were observed:
+The incident occurred at 1:24 p.m and Customers notified the organization that they received the message “destination port unreachable” when they attempted to visit the website www.yummyrecipesforme.com. The cybersecurity team providing IT services to their client organization are currently investigating the issue so customers can access the website again. While investigating using tcpdump , the resulting log files ,DNS port 53 was found unreachable. The next step is to identify whether the DNS server is down or traffic to port 53 is blocked by the firewall. 
 
-  *Website visitors reported inability to access the site.
-  
- *Attempts to load the website resulted in the “destination port unreachable” error message.Initial analysis suggested a potential issue with network connectivity.
+Based on the findings, the most likely cause of the issue is DNS server unavailability or misconfiguration, preventing users from resolving the website's domain name. This could be due to:
 
-2-The website remains inaccessible as DNS resolution fails, preventing clients from reaching the server. The issue persists despite multiple user attempts to access the site.
-
-3-A network traffic analysis was conducted using tcpdump, which revealed the following key observations:
-
-
- *The browser sends a UDP request to the DNS server on port 53, attempting to resolve the domain name.
- 
-*The DNS server responds with an ICMP error message: “udp port 53 unreachable.”This indicates that the DNS server is either down, unreachable, or there is a network misconfiguration blocking access to port 53.
-
-*The HTTPS request to the web server never initiates because the DNS resolution fails.
-
-4-Based on the findings, the most likely cause of the issue is DNS server unavailability or misconfiguration, preventing users from resolving the website's domain name. This could be due to:
-
-*DNS service failure or downtime.
-
-*Firewall or network security settings blocking DNS traffic.
+*Successful Denial of Service attack 
 
 *Routing misconfigurations leading to packet loss.
 
 By addressing these areas, the goal is to restore normal website access and prevent future disruptions.
 
-<h2>Solution to implement</h2>
+<h2>Solutions to implement</h2>
 
 To address the issue, the following actions should be taken:
 
