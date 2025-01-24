@@ -2,7 +2,7 @@
 
 <h2>Scenario</h2>
 
-You are a cybersecurity analyst working at a company that specializes in providing IT services for clients. Several customers of clients reported that they were not able to access the client company website www.yummyrecipesforme.com, and saw the error “destination port unreachable” after waiting for the page to load. 
+You are a cybersecurity analyst working at a company that specializes in providing IT services for clients. Several customers of clients reported that they were not able to access the client company website (yummyrecipesforme.com) and saw the error “destination port unreachable” after waiting for the page to load. 
 
 You are tasked with analyzing the situation and determining which network protocol was affected during this incident. To start, you attempt to visit the website and you also receive the error “destination port unreachable.” To troubleshoot the issue, you load your network analyzer tool, tcpdump, and attempt to load the webpage again. To load the webpage, your browser sends a query to a DNS server via the UDP protocol to retrieve the IP address for the website's domain name; this is part of the DNS protocol. Your browser then uses this IP address as the destination IP for sending an HTTPS request to the web server to display the webpage  The analyzer shows that when you send UDP packets to the DNS server, you receive ICMP packets containing the error message: “udp port 53 unreachable.”
 
@@ -16,15 +16,15 @@ In the tcpdump log, you find the following information:
 
 <h2>Project Description</h2>
 
--This project focuses on analyzing and troubleshooting a network connectivity issue affecting a client’s website, www.yummyrecipesforme.com , which has been reported as inaccessible by several customers.
+-This project focuses on analyzing and troubleshooting a network connectivity issue affecting a client’s website, which has been reported as inaccessible by several customers.
 
 -This is done using data from a network protocol analyzer tool called tcpdump.
 
 <h2>Summary of Problem found in Tcpdump log</h2>
 
-The analysis of the captured tcpdump log reveals that the root cause of the issue preventing users from accessing the website www.yummyrecipesforme.com is a failure in the DNS resolution process. 
+The analysis of the captured tcpdump log reveals that the root cause of the issue preventing users from accessing the website is a failure in the DNS resolution process. 
 
-As part of the DNS protocol, the UDP protocol was used to contact the DNS server to retrieve the IP address for the domain name of www.yummyrecipesforme.com. 
+As part of the DNS protocol, the UDP protocol was used to contact the DNS server to retrieve the IP address for the domain name of (yummyrecipesforme.com) .
 
 The ICMP protocol was used to respond with an error message, indicating issues contacting the DNS server. 
 
@@ -40,7 +40,7 @@ Due to the ICMP error response message about port 53, it is highly likely that t
 
 <h2>Analysis of the data</h2>
 
-The incident occurred at 1:24 p.m and Customers notified the organization that they received the message “destination port unreachable” when they attempted to visit the website www.yummyrecipesforme.com. The cybersecurity team providing IT services to their client organization are currently investigating the issue so customers can access the website again. While investigating using tcpdump , the resulting log files ,DNS port 53 was found unreachable. The next step is to identify whether the DNS server is down or traffic to port 53 is blocked by the firewall. 
+The incident occurred at 1:24 p.m and Customers notified the organization that they received the message “destination port unreachable” when they attempted to visit the website . The cybersecurity team providing IT services to their client organization are currently investigating the issue so customers can access the website again. While investigating using tcpdump , the resulting log files ,DNS port 53 was found unreachable. The next step is to identify whether the DNS server is down or traffic to port 53 is blocked by the firewall. 
 
 Based on the findings, the most likely cause of the issue is DNS server unavailability or misconfiguration, preventing users from resolving the website's domain name. This could be due to:
 
